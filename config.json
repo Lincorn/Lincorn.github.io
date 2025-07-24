@@ -5,5 +5,9 @@
     "faviconUrl":"https://imgs.lemonas.us.kg/file/mike.png",
     "singlePage":["link","about"],
     "startSite":"07/23/2025",
+    "onePageListNum":15,
+    "commentLabelColor":"#006b75",
+    "yearColorList":["#bc4c00", "#0969da", "#1f883d", "#A333D0"],
+    "i18n":"CN",
     "GMEEK_VERSION":"last"
 }
