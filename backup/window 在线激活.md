@@ -1,4 +1,4 @@
-# 激活方法 PowerShell
+## 激活方法 PowerShell
 1. **打开 PowerShell**  
    单击“开始”菜单，键入 ，然后将其打开。
 
