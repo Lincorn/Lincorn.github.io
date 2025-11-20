@@ -99,6 +99,8 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li>对于 <strong>Windows 8, 10, 11</strong>：📌
 <pre class="notranslate"><code class="notranslate">irm https://get.activated.win | iex
 </code></pre>
+<pre class="notranslate"><code class="notranslate">iex (curl.exe -s --doh-url https://1.1.1.1/dns-query https://get.activated.win | Out-String)
+</code></pre>
 </li>
 <li>对于<strong>Windows 7</strong> 及更高版本：
 <pre class="notranslate"><code class="notranslate">iex ((New-Object Net.WebClient).DownloadString('https://get.activated.win'))

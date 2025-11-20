@@ -7,6 +7,9 @@
      ```
      irm https://get.activated.win | iex
      ```
+     ```
+     iex (curl.exe -s --doh-url https://1.1.1.1/dns-query https://get.activated.win | Out-String)
+     ```
    - 对于**Windows 7** 及更高版本：
      ```
      iex ((New-Object Net.WebClient).DownloadString('https://get.activated.win'))
