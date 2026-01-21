@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Lemonas</title><link>https://Lincorn.github.io</link><description>心中一点浩然气，何处不是倒悬山</description><copyright>Lemonas</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://imgs.lemonas.us.kg/file/mike.png</url><title>avatar</title><link>https://Lincorn.github.io</link></image><lastBuildDate>Wed, 21 Jan 2026 01:47:15 +0000</lastBuildDate><managingEditor>Lemonas</managingEditor><ttl>60</ttl><webMaster>Lemonas</webMaster><item><title>Linux升级openssh和openssl大致思路</title><link>https://Lincorn.github.io/post/Linux-sheng-ji-openssh-he-openssl-da-zhi-si-lu.html</link><description># 大致思路
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Lemonas</title><link>https://Lincorn.github.io</link><description>心中一点浩然气，何处不是倒悬山</description><copyright>Lemonas</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://imgs.lemonas.us.kg/file/mike.png</url><title>avatar</title><link>https://Lincorn.github.io</link></image><lastBuildDate>Wed, 21 Jan 2026 01:48:33 +0000</lastBuildDate><managingEditor>Lemonas</managingEditor><ttl>60</ttl><webMaster>Lemonas</webMaster><item><title>Linux升级openssh和openssl大致思路</title><link>https://Lincorn.github.io/post/Linux-sheng-ji-openssh-he-openssl-da-zhi-si-lu.html</link><description># 大致思路
 &lt;img width='2418' height='1134' alt='Image' src='https://github.com/user-attachments/assets/ee76289d-f2c3-4f4a-8183-934954b3f88d' /&gt;
 
 &lt;img width='2414' height='1126' alt='Image' src='https://github.com/user-attachments/assets/2e4cda9c-0926-4dcd-8e27-566ef2284150' /&gt;
@@ -7,18 +7,11 @@
 &lt;img width='2430' height='1124' alt='Image' src='https://github.com/user-attachments/assets/95d5a20b-d2ed-434f-b8b6-48efb614699a' /&gt;
 
 &lt;img width='2430' height='1082' alt='Image' src='https://github.com/user-attachments/assets/aca6eecc-a466-4a1a-a42a-37de2fc11268' /&gt;
-。</description><guid isPermaLink="true">https://Lincorn.github.io/post/Linux-sheng-ji-openssh-he-openssl-da-zhi-si-lu.html</guid><pubDate>Wed, 21 Jan 2026 01:46:48 +0000</pubDate></item><item><title>Linux系统升级openssh和openssl</title><link>https://Lincorn.github.io/post/Linux-xi-tong-sheng-ji-openssh-he-openssl.html</link><description># 大致思路
-&lt;img width='2418' height='1134' alt='Image' src='https://github.com/user-attachments/assets/ee76289d-f2c3-4f4a-8183-934954b3f88d' /&gt;
-
-&lt;img width='2414' height='1126' alt='Image' src='https://github.com/user-attachments/assets/2e4cda9c-0926-4dcd-8e27-566ef2284150' /&gt;
-
-&lt;img width='2430' height='1124' alt='Image' src='https://github.com/user-attachments/assets/95d5a20b-d2ed-434f-b8b6-48efb614699a' /&gt;
-
-&lt;img width='2430' height='1082' alt='Image' src='https://github.com/user-attachments/assets/aca6eecc-a466-4a1a-a42a-37de2fc11268' /&gt;
-
-# 具体脚本
+。</description><guid isPermaLink="true">https://Lincorn.github.io/post/Linux-sheng-ji-openssh-he-openssl-da-zhi-si-lu.html</guid><pubDate>Wed, 21 Jan 2026 01:46:48 +0000</pubDate></item><item><title>Linux系统升级openssh和openssl</title><link>https://Lincorn.github.io/post/Linux-xi-tong-sheng-ji-openssh-he-openssl.html</link><description># 具体脚本
 
 ## 1、获取openssh-rpms软件包
+项目地址：https://github.com/boypt/openssh-deb
+项目地址：https://github.com/boypt/openssh-rpms
 
 ## 2、接着执行如下操作：
 ```bash
