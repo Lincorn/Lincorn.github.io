@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    <script src='https://blog.meekdai.com/Gmeek/plugins/GmeekVercount.js'></script>
+    <link rel="icon" href="https://imgs.lemonas.us.kg/file/mike.png"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="# 大致思路
+<img width='2418' height='1134' alt='Image' src='https://github.com/user-attachments/assets/ee76289d-f2c3-4f4a-8183-934954b3f88d' />
+
+<img width='2414' height='1126' alt='Image' src='https://github.com/user-attachments/assets/2e4cda9c-0926-4dcd-8e27-566ef2284150' />
+
+<img width='2430' height='1124' alt='Image' src='https://github.com/user-attachments/assets/95d5a20b-d2ed-434f-b8b6-48efb614699a' />
+
+<img width='2430' height='1082' alt='Image' src='https://github.com/user-attachments/assets/aca6eecc-a466-4a1a-a42a-37de2fc11268' />
+
+# 具体脚本
+
+## 1、获取openssh-rpms软件包
+
+## 2、接着执行如下操作：
+```bash
+yum install perl perl-IPC-Cmd
+yum groupinstall -y 'Development Tools'
+yum install -y imake rpm-build pam-devel krb5-devel zlib-devel libXt-devel libX11-devel gtk2-devel initscripts chkconfig perl-Time-Piece 
+```
+```bash
+# For CentOS7 and above:
+yum install -y systemd-devel
+```
+```bash
+# For CentOS5 only:
+yum install -y gcc44
+```
+
+
+## 3、下载并编译openssh
+下载软件包，主要是openssl和openssh
+```bash
+openssl: https://openssl-library.org/source/
+openssh: https://mirrors.aliyun.com/pub/OpenBSD/OpenSSH/portable/
+```
+```bash
+[root@openeurelr1233 ~]# cd openssh-rpms-main
+amzn1 amzn2023  docker   downloads el6 pullsrc.sh version.env
+amzn2 compile.sh docker.README.md el5  el7 README.md
+```
+```bash
+#下面此步骤会自动下载所需源码包，也可以手动下载，放到downloads目录下
+[root@openeurelr1233 openssh-rpms-main]# ./pullsrc.sh
+上面脚本默认下载openssl和openssh的软件版本，会读取version.env文件，可修改此文件，选择需要下载和编译
+的其他版本。">
+<meta property="og:title" content="Linux系统升级openssh和openssl">
+<meta property="og:description" content="# 大致思路
+<img width='2418' height='1134' alt='Image' src='https://github.com/user-attachments/assets/ee76289d-f2c3-4f4a-8183-934954b3f88d' />
+
+<img width='2414' height='1126' alt='Image' src='https://github.com/user-attachments/assets/2e4cda9c-0926-4dcd-8e27-566ef2284150' />
+
+<img width='2430' height='1124' alt='Image' src='https://github.com/user-attachments/assets/95d5a20b-d2ed-434f-b8b6-48efb614699a' />
+
+<img width='2430' height='1082' alt='Image' src='https://github.com/user-attachments/assets/aca6eecc-a466-4a1a-a42a-37de2fc11268' />
+
+# 具体脚本
+
+## 1、获取openssh-rpms软件包
+
+## 2、接着执行如下操作：
+```bash
+yum install perl perl-IPC-Cmd
+yum groupinstall -y 'Development Tools'
+yum install -y imake rpm-build pam-devel krb5-devel zlib-devel libXt-devel libX11-devel gtk2-devel initscripts chkconfig perl-Time-Piece 
+```
+```bash
+# For CentOS7 and above:
+yum install -y systemd-devel
+```
+```bash
+# For CentOS5 only:
+yum install -y gcc44
+```
+
+
+## 3、下载并编译openssh
+下载软件包，主要是openssl和openssh
+```bash
+openssl: https://openssl-library.org/source/
+openssh: https://mirrors.aliyun.com/pub/OpenBSD/OpenSSH/portable/
+```
+```bash
+[root@openeurelr1233 ~]# cd openssh-rpms-main
+amzn1 amzn2023  docker   downloads el6 pullsrc.sh version.env
+amzn2 compile.sh docker.README.md el5  el7 README.md
+```
+```bash
+#下面此步骤会自动下载所需源码包，也可以手动下载，放到downloads目录下
+[root@openeurelr1233 openssh-rpms-main]# ./pullsrc.sh
+上面脚本默认下载openssl和openssh的软件版本，会读取version.env文件，可修改此文件，选择需要下载和编译
+的其他版本。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://Lincorn.github.io/post/Linux-xi-tong-sheng-ji-openssh-he-openssl.html">
+<meta property="og:image" content="https://imgs.lemonas.us.kg/file/mike.png">
+<title>Linux系统升级openssh和openssl</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">Linux系统升级openssh和openssl</h1>
+<div class="title-right">
+    <a href="https://Lincorn.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/Lincorn/Lincorn.github.io/issues/11" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><h1>大致思路</h1>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/ee76289d-f2c3-4f4a-8183-934954b3f88d"><img width="2000" height="1134" alt="Image" src="https://github.com/user-attachments/assets/ee76289d-f2c3-4f4a-8183-934954b3f88d" style="max-width: 100%; height: auto; max-height: 1134px;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/2e4cda9c-0926-4dcd-8e27-566ef2284150"><img width="2000" height="1126" alt="Image" src="https://github.com/user-attachments/assets/2e4cda9c-0926-4dcd-8e27-566ef2284150" style="max-width: 100%; height: auto; max-height: 1126px;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/95d5a20b-d2ed-434f-b8b6-48efb614699a"><img width="2000" height="1124" alt="Image" src="https://github.com/user-attachments/assets/95d5a20b-d2ed-434f-b8b6-48efb614699a" style="max-width: 100%; height: auto; max-height: 1124px;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/aca6eecc-a466-4a1a-a42a-37de2fc11268"><img width="2000" height="1082" alt="Image" src="https://github.com/user-attachments/assets/aca6eecc-a466-4a1a-a42a-37de2fc11268" style="max-width: 100%; height: auto; max-height: 1082px;"></a></p>
+<h1>具体脚本</h1>
+<h2>1、获取openssh-rpms软件包</h2>
+<h2>2、接着执行如下操作：</h2>
+<div class="highlight highlight-source-shell"><pre class="notranslate">yum install perl perl-IPC-Cmd
+yum groupinstall -y <span class="pl-s"><span class="pl-pds">"</span>Development Tools<span class="pl-pds">"</span></span>
+yum install -y imake rpm-build pam-devel krb5-devel zlib-devel libXt-devel libX11-devel gtk2-devel initscripts chkconfig perl-Time-Piece </pre></div>
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span> For CentOS7 and above:</span>
+yum install -y systemd-devel</pre></div>
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span> For CentOS5 only:</span>
+yum install -y gcc44</pre></div>
+<h2>3、下载并编译openssh</h2>
+<p>下载软件包，主要是openssl和openssh</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">openssl: https://openssl-library.org/source/
+openssh: https://mirrors.aliyun.com/pub/OpenBSD/OpenSSH/portable/</pre></div>
+<div class="highlight highlight-source-shell"><pre class="notranslate">[root@openeurelr1233 <span class="pl-k">~</span>]<span class="pl-c"><span class="pl-c">#</span> cd openssh-rpms-main</span>
+amzn1 amzn2023  docker   downloads el6 pullsrc.sh version.env
+amzn2 compile.sh docker.README.md el5  el7 README.md</pre></div>
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span>下面此步骤会自动下载所需源码包，也可以手动下载，放到downloads目录下</span>
+[root@openeurelr1233 openssh-rpms-main]<span class="pl-c"><span class="pl-c">#</span> ./pullsrc.sh</span>
+上面脚本默认下载openssl和openssh的软件版本，会读取version.env文件，可修改此文件，选择需要下载和编译
+的其他版本。</pre></div>
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span>编译生成rpm</span>
+[root@openeurelr1233 openssh-rpms-main]<span class="pl-c"><span class="pl-c">#</span> bash compile.sh</span>
+[root@openeurelr1233 openssh-rpms-main]<span class="pl-c"><span class="pl-c">#</span> cd el7/RPMS/x86_64</span>
+[root@openrner x86_64]<span class="pl-c"><span class="pl-c">#</span> ls -al</span>
+-rw-r--r--. 1 root root 6263529 7月 13 22:24 openssh-9.8p1-1.x86_64.rpm
+-rw-r--r--. 1 root root 6413937 7月 13 22:24 openssh-clients-9.8p1-1.x86_64.rpm
+-rw-r--r--. 1 root root 5412869 7月 13 22:24 openssh-debuginfo-9.8p1-1.x86_64.rpm
+-rw-r--r--. 1 root root  837413 7月 13 22:24 openssh-debugsource-9.8p1-1.x86_64.rpm
+-rw-r--r--. 1 root root 3407697 7月 13 22:24 openssh-server-9.8p1-1.x86_64.rpm</pre></div>
+<h2>4、rpm方式安装openssh软件包</h2>
+<p>安装脚本如下：</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#!</span>/bin/bash</span>
+cp /etc/pam.d/sshd /etc/pam.d/sshd.before
+cp /etc/ssh/sshd_config /etc/ssh/sshd_config.before
+rpm -Uvh <span class="pl-k">*</span>rpm
+<span class="pl-c1">cd</span> /etc/ssh
+ssh-keygen -t rsa -b 2048 -f ssh_host_rsa_key
+ssh-keygen -t ecdsa -b 256 -f ssh_host_ecdsa_key
+ssh-keygen -t ed25519 -f ssh_host_ed25519_key
+<span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>PermitRootLogin yes<span class="pl-pds">"</span></span> <span class="pl-k">&gt;&gt;</span> /etc/ssh/sshd_config
+<span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>PubkeyAuthentication yes<span class="pl-pds">"</span></span> <span class="pl-k">&gt;&gt;</span> /etc/ssh/sshd_config
+sed -i <span class="pl-s"><span class="pl-pds">'</span>s/#UsePAM no/UsePAM yes/g<span class="pl-pds">'</span></span> /etc/ssh/sshd_config
+/bin/cp /etc/pam.d/sshd.before /etc/pam.d/sshd
+sed -i <span class="pl-s"><span class="pl-pds">'</span>/#KexAlgorithms/a KexAlgorithms curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1<span class="pl-pds">'</span></span> /etc/ssh/sshd_config
+sed -i <span class="pl-s"><span class="pl-pds">'</span>/#Ciphers/a Ciphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc,blowfish-cbc,cast128-cbc<span class="pl-pds">'</span></span> /etc/ssh/sshd_config
+sed -i <span class="pl-s"><span class="pl-pds">'</span>/#MACs/a MACs hmac-md5,hmac-sha1,umac-64@openssh.com,hmac-ripemd160,hmac-sha2-256,hmac-sha2-512,hmac-ripemd160@openssh.com<span class="pl-pds">'</span></span> /etc/ssh/sshd_config
+<span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>HostKeyAlgorithms +ssh-rsa<span class="pl-pds">"</span></span> <span class="pl-k">&gt;&gt;</span> /etc/ssh/sshd_config
+systemctl restart sshd</pre></div>
+<h1>遇到问题解决方法</h1>
+<h2>问题一</h2>
+<p>如果提示脚本没有安装rpm-build就换成这个脚本compile.sh</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#!</span>/usr/bin/env bash</span>
+<span class="pl-c"><span class="pl-c">#</span> Bash3 Boilerplate. Copyright (c) 2014, kvz.io</span>
+<span class="pl-c"><span class="pl-c">#</span> 适配：CentOS 5/6/7/8/9、银河麒麟V10、Anolis 7/8、UOS 20+</span>
+<span class="pl-c"><span class="pl-c">#</span> 功能：自动识别发行版，补全编译依赖检测，支持手动指定版本</span>
+
+<span class="pl-c1">set</span> -o errexit
+<span class="pl-c1">set</span> -o pipefail
+<span class="pl-c1">set</span> -o nounset
+<span class="pl-c"><span class="pl-c">#</span> set -o xtrace # 调试时取消注释</span>
+
+<span class="pl-c1">trap</span> <span class="pl-s"><span class="pl-pds">'</span>echo -e "\nAborted, error $? in command: $BASH_COMMAND"; trap ERR; exit 1<span class="pl-pds">'</span></span> ERR
+
+<span class="pl-c"><span class="pl-c">#</span> 基础路径变量定义</span>
+__dir=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-s"><span class="pl-pds">$(</span>cd <span class="pl-s"><span class="pl-pds">"</span><span class="pl-s"><span class="pl-pds">$(</span>dirname <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">${BASH_SOURCE[0]}</span><span class="pl-pds">"</span></span><span class="pl-pds">)</span></span><span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> pwd<span class="pl-pds">)</span></span><span class="pl-pds">"</span></span>
+__file=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">${__dir}</span>/<span class="pl-s"><span class="pl-pds">$(</span>basename <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">${BASH_SOURCE[0]}</span><span class="pl-pds">"</span></span><span class="pl-pds">)</span></span><span class="pl-pds">"</span></span>
+__base=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-s"><span class="pl-pds">$(</span>basename <span class="pl-smi">${__file}</span> .sh<span class="pl-pds">)</span></span><span class="pl-pds">"</span></span>
+__root=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-s"><span class="pl-pds">$(</span>cd <span class="pl-s"><span class="pl-pds">"</span><span class="pl-s"><span class="pl-pds">$(</span>dirname <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">${__dir}</span><span class="pl-pds">"</span></span><span class="pl-pds">)</span></span><span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> pwd<span class="pl-pds">)</span></span><span class="pl-pds">"</span></span>
+
+arg1=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">${1<span class="pl-k">:-</span>}</span><span class="pl-pds">"</span></span>
+rpmtopdir=
+WITH_OPENSSL= <span class="pl-c"><span class="pl-c">#</span> 0:无openssl 1:系统openssl 2:静态编译openssl</span>
+
+<span class="pl-c"><span class="pl-c">#</span> ====================== 1. 核心依赖检测 ======================</span>
+<span class="pl-en">CHECK_DEPENDENCIES</span>() {
+    <span class="pl-c1">echo</span> -e <span class="pl-s"><span class="pl-pds">"</span>\n[INFO] ===== 检查编译依赖工具 =====<span class="pl-pds">"</span></span>
+    <span class="pl-k">local</span> required_deps=(
+        <span class="pl-s"><span class="pl-pds">"</span>rpmbuild<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>gcc<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>make<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>rpm<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>ldd<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>install<span class="pl-pds">"</span></span> 
+        <span class="pl-s"><span class="pl-pds">"</span>find<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>cat<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>cut<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>rev<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>grep<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>tr<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>pushd<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>popd<span class="pl-pds">"</span></span>
+    )
+
+    <span class="pl-k">for</span> <span class="pl-smi">dep</span> <span class="pl-k">in</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">${required_deps[@]}</span><span class="pl-pds">"</span></span><span class="pl-k">;</span> <span class="pl-k">do</span>
+        <span class="pl-k">if</span> <span class="pl-k">!</span> <span class="pl-c1">command</span> -v <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">$dep</span><span class="pl-pds">"</span></span> <span class="pl-k">&amp;</span><span class="pl-k">&gt;</span> /dev/null<span class="pl-k">;</span> <span class="pl-k">then</span>
+            <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[ERROR] 缺少编译依赖：<span class="pl-smi">$dep</span><span class="pl-pds">"</span></span>
+            <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[TIPS] 执行以下命令安装所有依赖：<span class="pl-pds">"</span></span>
+            <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>       yum install -y rpm-build gcc make coreutils findutils grep sed<span class="pl-pds">"</span></span>
+            <span class="pl-c1">exit</span> 1
+        <span class="pl-k">fi</span>
+    <span class="pl-k">done</span>
+    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[INFO] 所有编译依赖检测通过！<span class="pl-pds">"</span></span>
+}
+
+<span class="pl-c"><span class="pl-c">#</span> ====================== 2. 智能发行版识别（核心适配） ======================</span>
+<span class="pl-en">GUESS_DIST</span>() {
+    <span class="pl-c1">echo</span> -e <span class="pl-s"><span class="pl-pds">"</span>\n[INFO] ===== 自动识别发行版 =====<span class="pl-pds">"</span></span>
+    <span class="pl-c"><span class="pl-c">#</span> 优先从os-release识别（通用方式）</span>
+    <span class="pl-k">if</span> [[ <span class="pl-k">-f</span> /etc/os-release ]]<span class="pl-k">;</span> <span class="pl-k">then</span>
+        <span class="pl-c1">source</span> /etc/os-release
+        <span class="pl-c"><span class="pl-c">#</span> 银河麒麟V10</span>
+        <span class="pl-k">if</span> [[ <span class="pl-smi">$NAME</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>Kylin Linux Advanced Server<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-smi">$VERSION_ID</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>V10<span class="pl-pds">"</span></span> ]]<span class="pl-k">;</span> <span class="pl-k">then</span>
+            <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[INFO] 识别到：银河麒麟V10 → 适配为el7<span class="pl-pds">"</span></span>
+            <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>el7<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-k">return</span> 0
+        <span class="pl-k">fi</span>
+        <span class="pl-c"><span class="pl-c">#</span> 统信UOS 20+</span>
+        <span class="pl-k">if</span> [[ <span class="pl-smi">$NAME</span> <span class="pl-k">==</span> <span class="pl-k">*</span><span class="pl-s"><span class="pl-pds">"</span>UOS<span class="pl-pds">"</span></span><span class="pl-k">*</span> <span class="pl-k">||</span> <span class="pl-smi">$NAME</span> <span class="pl-k">==</span> <span class="pl-k">*</span><span class="pl-s"><span class="pl-pds">"</span>UnionTech<span class="pl-pds">"</span></span><span class="pl-k">*</span> ]]<span class="pl-k">;</span> <span class="pl-k">then</span>
+            <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[INFO] 识别到：统信UOS → 适配为el8<span class="pl-pds">"</span></span>
+            <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>el8<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-k">return</span> 0
+        <span class="pl-k">fi</span>
+        <span class="pl-c"><span class="pl-c">#</span> 龙蜥Anolis</span>
+        <span class="pl-k">if</span> [[ <span class="pl-smi">$NAME</span> <span class="pl-k">==</span> <span class="pl-k">*</span><span class="pl-s"><span class="pl-pds">"</span>Anolis<span class="pl-pds">"</span></span><span class="pl-k">*</span> ]]<span class="pl-k">;</span> <span class="pl-k">then</span>
+            [[ <span class="pl-smi">$VERSION_ID</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>8<span class="pl-pds">"</span></span> ]] <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[INFO] 识别到：龙蜥8 → 适配为el8<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>el8<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-k">return</span> 0
+            [[ <span class="pl-smi">$VERSION_ID</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>7<span class="pl-pds">"</span></span> ]] <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[INFO] 识别到：龙蜥7 → 适配为el7<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>el7<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-k">return</span> 0
+        <span class="pl-k">fi</span>
+        <span class="pl-c"><span class="pl-c">#</span> CentOS/RHEL</span>
+        <span class="pl-k">if</span> [[ <span class="pl-smi">$NAME</span> <span class="pl-k">==</span> <span class="pl-k">*</span><span class="pl-s"><span class="pl-pds">"</span>CentOS<span class="pl-pds">"</span></span><span class="pl-k">*</span> <span class="pl-k">||</span> <span class="pl-smi">$NAME</span> <span class="pl-k">==</span> <span class="pl-k">*</span><span class="pl-s"><span class="pl-pds">"</span>Red Hat<span class="pl-pds">"</span></span><span class="pl-k">*</span> ]]<span class="pl-k">;</span> <span class="pl-k">then</span>
+            <span class="pl-k">case</span> <span class="pl-smi">$VERSION_ID</span> <span class="pl-k">in</span>
+                5) <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[INFO] 识别到：CentOS/RHEL 5 → 适配为el5<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>el5<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-k">return</span> 0 ;;
+                6) <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[INFO] 识别到：CentOS/RHEL 6 → 适配为el6<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>el6<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-k">return</span> 0 ;;
+                7) <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[INFO] 识别到：CentOS/RHEL 7 → 适配为el7<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>el7<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-k">return</span> 0 ;;
+                8|9) <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[INFO] 识别到：CentOS/RHEL 8+/9 → 适配为el8<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>el8<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-k">return</span> 0 ;;
+            <span class="pl-k">esac</span>
+        <span class="pl-k">fi</span>
+    <span class="pl-k">fi</span>
+
+    <span class="pl-c"><span class="pl-c">#</span> 备用方案：通过rpm/dist识别</span>
+    <span class="pl-k">if</span> <span class="pl-c1">type</span> -p rpm <span class="pl-k">&gt;</span> /dev/null<span class="pl-k">;</span><span class="pl-k">then</span>
+        <span class="pl-k">local</span> dist=<span class="pl-s"><span class="pl-pds">$(</span>rpm --eval <span class="pl-s"><span class="pl-pds">'</span>%{?dist}<span class="pl-pds">'</span></span> <span class="pl-k">|</span> tr -d <span class="pl-s"><span class="pl-pds">'</span>.<span class="pl-pds">'</span></span><span class="pl-pds">)</span></span>
+        [[ <span class="pl-smi">$dist</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>el9<span class="pl-pds">"</span></span> ]] <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[INFO] 识别到el9 → 降级适配为el8<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>el8<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-k">return</span> 0
+        [[ <span class="pl-smi">$dist</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>el8<span class="pl-pds">"</span></span> <span class="pl-k">||</span> <span class="pl-smi">$dist</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>an8<span class="pl-pds">"</span></span> ]] <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[INFO] 识别到el8/an8 → 适配为el8<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>el8<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-k">return</span> 0
+        [[ <span class="pl-smi">$dist</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>el7<span class="pl-pds">"</span></span> <span class="pl-k">||</span> <span class="pl-smi">$dist</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>an7<span class="pl-pds">"</span></span> ]] <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[INFO] 识别到el7/an7 → 适配为el7<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>el7<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-k">return</span> 0
+        [[ <span class="pl-smi">$dist</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>el6<span class="pl-pds">"</span></span> ]] <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[INFO] 识别到el6 → 适配为el6<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>el6<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-k">return</span> 0
+        [[ <span class="pl-smi">$dist</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>el5<span class="pl-pds">"</span></span> ]] <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[INFO] 识别到el5 → 适配为el5<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>el5<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-k">return</span> 0
+    <span class="pl-k">fi</span>
+
+    <span class="pl-c"><span class="pl-c">#</span> 最终兜底：通过glibc版本识别</span>
+    <span class="pl-k">local</span> glibcver=<span class="pl-s"><span class="pl-pds">$(</span>ldd --version <span class="pl-k">|</span> head -n1 <span class="pl-k">|</span> grep -Eo <span class="pl-s"><span class="pl-pds">'</span>[0-9]+<span class="pl-pds">'</span></span> <span class="pl-k">|</span> tr -d <span class="pl-s"><span class="pl-pds">'</span>\n<span class="pl-pds">'</span></span><span class="pl-pds">)</span></span>
+    [[ <span class="pl-smi">$glibcver</span> <span class="pl-k">-eq</span> 25 ]] <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[INFO] glibc 2.5 → 适配为el5<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>el5<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-k">return</span> 0
+    [[ <span class="pl-smi">$glibcver</span> <span class="pl-k">-eq</span> 212 ]] <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[INFO] glibc 2.12 → 适配为el6<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>el6<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-k">return</span> 0
+    [[ <span class="pl-smi">$glibcver</span> <span class="pl-k">-eq</span> 217 ]] <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[INFO] glibc 2.17 → 适配为el7<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>el7<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-k">return</span> 0
+    [[ <span class="pl-smi">$glibcver</span> <span class="pl-k">-ge</span> 228 ]] <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[INFO] glibc ≥2.28 → 适配为el8<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>el8<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-k">return</span> 0
+
+    <span class="pl-c"><span class="pl-c">#</span> 所有识别失败</span>
+    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[ERROR] 无法识别发行版！<span class="pl-pds">"</span></span>
+    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[INFO] 当前系统信息：<span class="pl-pds">"</span></span>
+    [[ <span class="pl-k">-f</span> /etc/os-release ]] <span class="pl-k">&amp;&amp;</span> cat /etc/os-release <span class="pl-k">|</span> grep -E <span class="pl-s"><span class="pl-pds">"</span>NAME|VERSION<span class="pl-pds">"</span></span>
+    [[ <span class="pl-k">-f</span> /etc/redhat-release ]] <span class="pl-k">&amp;&amp;</span> cat /etc/redhat-release
+    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[TIPS] 请手动指定版本：./compile.sh el7 (或el5/el6/el8)<span class="pl-pds">"</span></span>
+    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>unknown<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-k">return</span> 1
+}
+
+<span class="pl-c"><span class="pl-c">#</span> ====================== 3. 版本目录选择 ======================</span>
+<span class="pl-en">TOPDIR_SELECT</span>() {
+    <span class="pl-k">local</span> DISTVER=<span class="pl-s"><span class="pl-pds">$(</span>GUESS_DIST<span class="pl-pds">)</span></span>
+    [[ <span class="pl-smi">$DISTVER</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>unknown<span class="pl-pds">"</span></span> ]] <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">exit</span> 1
+
+    <span class="pl-k">case</span> <span class="pl-smi">$DISTVER</span> <span class="pl-k">in</span>
+        el8)
+            rpmtopdir=el7  <span class="pl-c"><span class="pl-c">#</span> el8兼容el7编译目录</span>
+            WITH_OPENSSL=<span class="pl-smi">${WITH_OPENSSL<span class="pl-k">:-</span>1}</span>
+            ;;
+        el7)
+            rpmtopdir=el7
+            WITH_OPENSSL=<span class="pl-smi">${WITH_OPENSSL<span class="pl-k">:-</span>2}</span>
+            ;;
+        el6)
+            rpmtopdir=el6
+            WITH_OPENSSL=<span class="pl-smi">${WITH_OPENSSL<span class="pl-k">:-</span>2}</span>
+            ;;
+        el5)
+            rpmtopdir=el5
+            WITH_OPENSSL=<span class="pl-smi">${WITH_OPENSSL<span class="pl-k">:-</span>2}</span>
+            rpm -q gcc44 <span class="pl-k">2&gt;&amp;1</span> <span class="pl-k">&gt;</span>/dev/null <span class="pl-k">&amp;&amp;</span> <span class="pl-k">export</span> CC=gcc44
+            ;;
+    <span class="pl-k">esac</span>
+    <span class="pl-c1">echo</span> -e <span class="pl-s"><span class="pl-pds">"</span>\n[INFO] 最终选择编译目录：<span class="pl-smi">$rpmtopdir</span><span class="pl-pds">"</span></span>
+}
+
+<span class="pl-c"><span class="pl-c">#</span> ====================== 4. 源码文件检查 ======================</span>
+<span class="pl-en">CHECKEXISTS</span>() {
+  <span class="pl-k">if</span> [[ <span class="pl-k">!</span> <span class="pl-k">-f</span> <span class="pl-smi">$__dir</span>/downloads/<span class="pl-smi">$1</span> ]]<span class="pl-k">;</span><span class="pl-k">then</span>
+    <span class="pl-c1">echo</span> -e <span class="pl-s"><span class="pl-pds">"</span>\n[ERROR] 缺失源码文件：<span class="pl-smi">$1</span><span class="pl-pds">"</span></span>
+    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[TIPS] 执行 ./pullsrc.sh 拉取源码，或手动放入 downloads 目录<span class="pl-pds">"</span></span>
+    <span class="pl-c1">exit</span> 1
+  <span class="pl-k">fi</span>
+}
+
+<span class="pl-c"><span class="pl-c">#</span> ====================== 5. RPM编译核心逻辑 ======================</span>
+<span class="pl-en">BUILD_RPM</span>() {
+    <span class="pl-c1">echo</span> -e <span class="pl-s"><span class="pl-pds">"</span>\n[INFO] ===== 开始编译RPM包 =====<span class="pl-pds">"</span></span>
+    <span class="pl-c"><span class="pl-c">#</span> 加载版本配置</span>
+    <span class="pl-k">if</span> [[ <span class="pl-k">!</span> <span class="pl-k">-f</span> <span class="pl-smi">$__dir</span>/version.env ]]<span class="pl-k">;</span> <span class="pl-k">then</span>
+        <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[ERROR] 缺少版本配置文件：version.env<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">exit</span> 1
+    <span class="pl-k">fi</span>
+    <span class="pl-c1">source</span> <span class="pl-smi">$__dir</span>/version.env
+    [[ <span class="pl-k">-f</span> <span class="pl-smi">$__dir</span>/version-local.env ]] <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">source</span> <span class="pl-smi">$__dir</span>/version-local.env
+
+    <span class="pl-c"><span class="pl-c">#</span> 检查必要源码</span>
+    <span class="pl-k">local</span> SOURCES=(<span class="pl-smi">$OPENSSHSRC</span> <span class="pl-smi">$OPENSSLSRC</span> <span class="pl-smi">$ASKPASSSRC</span>)
+    [[ <span class="pl-smi">$rpmtopdir</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>el5<span class="pl-pds">"</span></span> ]] <span class="pl-k">&amp;&amp;</span> SOURCES+=(<span class="pl-smi">$PERLSRC</span>)
+
+    <span class="pl-k">for</span> <span class="pl-smi">fn</span> <span class="pl-k">in</span> <span class="pl-smi">${SOURCES[@]}</span><span class="pl-k">;</span> <span class="pl-k">do</span>
+      CHECKEXISTS <span class="pl-smi">$fn</span>
+    <span class="pl-k">done</span>
+
+    <span class="pl-c"><span class="pl-c">#</span> 编译参数配置</span>
+    <span class="pl-k">local</span> RPMBUILDOPTS=(
+        --define <span class="pl-s"><span class="pl-pds">"</span>with_openssl <span class="pl-smi">${WITH_OPENSSL}</span><span class="pl-pds">"</span></span>
+        --define <span class="pl-s"><span class="pl-pds">"</span>opensslver <span class="pl-smi">${OPENSSLVER}</span><span class="pl-pds">"</span></span>
+        --define <span class="pl-s"><span class="pl-pds">"</span>opensshver <span class="pl-smi">${OPENSSHVER}</span><span class="pl-pds">"</span></span>
+        --define <span class="pl-s"><span class="pl-pds">"</span>opensshpkgrel <span class="pl-smi">${PKGREL}</span><span class="pl-pds">"</span></span>
+        --define <span class="pl-s"><span class="pl-pds">'</span>debug_package %{nil}<span class="pl-pds">'</span></span>
+        --define <span class="pl-s"><span class="pl-pds">'</span>no_gtk2 1<span class="pl-pds">'</span></span>
+        --define <span class="pl-s"><span class="pl-pds">'</span>skip_gnome_askpass 1<span class="pl-pds">'</span></span>
+        --define <span class="pl-s"><span class="pl-pds">'</span>skip_x11_askpass 1<span class="pl-pds">'</span></span>
+    )
+
+    <span class="pl-c"><span class="pl-c">#</span> EL5/EL7 特殊参数</span>
+    [[ <span class="pl-smi">$rpmtopdir</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>el5<span class="pl-pds">"</span></span> ]] <span class="pl-k">&amp;&amp;</span> RPMBUILDOPTS+=(<span class="pl-s"><span class="pl-pds">'</span>--define<span class="pl-pds">'</span></span> <span class="pl-s"><span class="pl-pds">"</span>perlver <span class="pl-smi">${PERLVER}</span><span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">'</span>--define<span class="pl-pds">'</span></span> <span class="pl-s"><span class="pl-pds">'</span>dist .el5<span class="pl-pds">'</span></span>)
+    [[ <span class="pl-smi">$rpmtopdir</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>el7<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> <span class="pl-k">-z</span> <span class="pl-s"><span class="pl-pds">$(</span>rpm --eval <span class="pl-s"><span class="pl-pds">'</span>%{?dist}<span class="pl-pds">'</span></span><span class="pl-pds">)</span></span> ]] <span class="pl-k">&amp;&amp;</span> RPMBUILDOPTS+=(<span class="pl-s"><span class="pl-pds">'</span>--define<span class="pl-pds">'</span></span> <span class="pl-s"><span class="pl-pds">"</span>dist .<span class="pl-s"><span class="pl-pds">$(</span>rpm -q glibc <span class="pl-k">|</span> rev <span class="pl-k">|</span> cut -d. -f2 <span class="pl-k">|</span> rev<span class="pl-pds">)</span></span><span class="pl-pds">"</span></span>)
+
+    <span class="pl-c"><span class="pl-c">#</span> 执行编译</span>
+    <span class="pl-c1">pushd</span> <span class="pl-smi">$__dir</span>/<span class="pl-smi">$rpmtopdir</span> <span class="pl-k">&gt;</span> /dev/null
+    RPMBUILDOPTS+=(<span class="pl-s"><span class="pl-pds">'</span>--define<span class="pl-pds">'</span></span> <span class="pl-s"><span class="pl-pds">"</span>_topdir <span class="pl-smi">$PWD</span><span class="pl-pds">"</span></span>)
+    <span class="pl-k">for</span> <span class="pl-smi">fn</span> <span class="pl-k">in</span> <span class="pl-smi">${SOURCES[@]}</span><span class="pl-k">;</span> <span class="pl-k">do</span>
+      install -v -m666 <span class="pl-smi">$__dir</span>/downloads/<span class="pl-smi">$fn</span> ./SOURCES/
+    <span class="pl-k">done</span>
+    rpmbuild -ba ./SPECS/openssh.spec <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">${RPMBUILDOPTS[@]}</span><span class="pl-pds">"</span></span>
+    <span class="pl-c1">popd</span> <span class="pl-k">&gt;</span> /dev/null
+
+    <span class="pl-c"><span class="pl-c">#</span> 输出编译结果</span>
+    <span class="pl-k">local</span> RPMDIR=<span class="pl-smi">$__dir</span>/<span class="pl-smi">${rpmtopdir}</span>/RPMS/<span class="pl-s"><span class="pl-pds">$(</span>rpm --eval <span class="pl-s"><span class="pl-pds">'</span>%{_arch}<span class="pl-pds">'</span></span><span class="pl-pds">)</span></span>
+    <span class="pl-c1">echo</span> -e <span class="pl-s"><span class="pl-pds">"</span>\n[SUCCESS] 编译完成！RPM包路径：<span class="pl-pds">"</span></span>
+    find <span class="pl-smi">$RPMDIR</span> -type f -name <span class="pl-s"><span class="pl-pds">'</span>*.rpm<span class="pl-pds">'</span></span>
+}
+
+<span class="pl-c"><span class="pl-c">#</span> ====================== 6. 辅助功能（查版本/查RPM路径） ======================</span>
+<span class="pl-en">LIST_RPMDIR</span>(){
+    <span class="pl-k">local</span> RPMDIR=<span class="pl-smi">$__dir</span>/<span class="pl-smi">${rpmtopdir}</span>/RPMS/<span class="pl-s"><span class="pl-pds">$(</span>rpm --eval <span class="pl-s"><span class="pl-pds">'</span>%{_arch}<span class="pl-pds">'</span></span><span class="pl-pds">)</span></span>
+    [[ <span class="pl-k">-d</span> <span class="pl-smi">$RPMDIR</span> ]] <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">echo</span> <span class="pl-smi">$RPMDIR</span>
+}
+
+<span class="pl-en">LIST_RPMS</span>() {
+    <span class="pl-k">local</span> RPMDIR=<span class="pl-s"><span class="pl-pds">$(</span>LIST_RPMDIR<span class="pl-pds">)</span></span>
+    [[ <span class="pl-k">-d</span> <span class="pl-smi">$RPMDIR</span> ]] <span class="pl-k">&amp;&amp;</span> find <span class="pl-smi">$RPMDIR</span> -type f -name <span class="pl-s"><span class="pl-pds">'</span>*.rpm<span class="pl-pds">'</span></span>
+}
+
+<span class="pl-c"><span class="pl-c">#</span> ====================== 7. 主逻辑入口 ======================</span>
+<span class="pl-c"><span class="pl-c">#</span> 第一步：检测依赖</span>
+CHECK_DEPENDENCIES
+
+<span class="pl-c"><span class="pl-c">#</span> 第二步：处理命令行参数</span>
+<span class="pl-k">case</span> <span class="pl-smi">$arg1</span> <span class="pl-k">in</span>
+    <span class="pl-c"><span class="pl-c">#</span> 辅助子命令</span>
+    GETEL)
+        GUESS_DIST <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">exit</span> 0
+        ;;
+    GETRPM)
+        TOPDIR_SELECT <span class="pl-k">&amp;&amp;</span> LIST_RPMS <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">exit</span> 0
+        ;;
+    RPMDIR)
+        TOPDIR_SELECT <span class="pl-k">&amp;&amp;</span> LIST_RPMDIR <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">exit</span> 0
+        ;;
+    <span class="pl-c"><span class="pl-c">#</span> 手动指定版本编译</span>
+    el5|el6|el7|el8)
+        rpmtopdir=<span class="pl-smi">$arg1</span>
+        <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[INFO] 手动指定编译版本：<span class="pl-smi">$rpmtopdir</span><span class="pl-pds">"</span></span>
+        BUILD_RPM <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">exit</span> 0
+        ;;
+    <span class="pl-c"><span class="pl-c">#</span> 无参数：自动识别版本编译</span>
+    <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>)
+        TOPDIR_SELECT
+        <span class="pl-k">if</span> [[ <span class="pl-k">!</span> <span class="pl-k">-d</span> <span class="pl-smi">$__dir</span>/<span class="pl-smi">$rpmtopdir</span> ]]<span class="pl-k">;</span> <span class="pl-k">then</span> 
+            <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[ERROR] 编译目录不存在：<span class="pl-smi">$__dir</span>/<span class="pl-smi">$rpmtopdir</span><span class="pl-pds">"</span></span>
+            <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>[TIPS] 请确认目录存在，或手动指定版本：./compile.sh el7<span class="pl-pds">"</span></span>
+            <span class="pl-c1">exit</span> 1
+        <span class="pl-k">fi</span>
+        BUILD_RPM <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">exit</span> 0
+        ;;
+    <span class="pl-c"><span class="pl-c">#</span> 无效参数</span>
+    <span class="pl-k">*</span>)
+        <span class="pl-c1">echo</span> -e <span class="pl-s"><span class="pl-pds">"</span>\n[ERROR] 无效参数：<span class="pl-smi">$arg1</span><span class="pl-pds">"</span></span>
+        <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>使用说明：<span class="pl-pds">"</span></span>
+        <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>  自动编译：./compile.sh<span class="pl-pds">"</span></span>
+        <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>  手动指定版本：./compile.sh el7 (el5/el6/el8)<span class="pl-pds">"</span></span>
+        <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>  辅助命令：./compile.sh GETEL (查适配版本) | GETRPM (查RPM路径) | RPMDIR (查RPM目录)<span class="pl-pds">"</span></span>
+        <span class="pl-c1">exit</span> 1
+        ;;
+<span class="pl-k">esac</span></pre></div>
+<h2>问题二</h2>
+<h4>如果按照1操作不行的话就到version.env把注释取消</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span> 编译选项：2=静态编译openssl（默认） WITH_OPENSSL=2</span></pre></div>
+<h4>验证</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c1">source</span> version.env
+<span class="pl-c1">echo</span> <span class="pl-smi">$WITH_OPENSSL</span>  <span class="pl-c"><span class="pl-c">#</span> 应输出2</span>
+<span class="pl-c1">echo</span> <span class="pl-smi">$OPENSSHVER</span>    <span class="pl-c"><span class="pl-c">#</span> 应输出10.2p1（自己需要安装的版本）</span></pre></div>
+<h2>问题三</h2>
+<p>如果运行install.sh脚本有问题就使用下面脚本</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#!</span>/bin/bash</span>
+<span class="pl-c1">set</span> -e  <span class="pl-c"><span class="pl-c">#</span> 遇到错误立即退出，避免执行后续错误操作</span>
+
+<span class="pl-c"><span class="pl-c">#</span> 定义颜色输出，方便查看执行状态</span>
+RED=<span class="pl-s"><span class="pl-pds">'</span>\033[0;31m<span class="pl-pds">'</span></span>
+GREEN=<span class="pl-s"><span class="pl-pds">'</span>\033[0;32m<span class="pl-pds">'</span></span>
+YELLOW=<span class="pl-s"><span class="pl-pds">'</span>\033[1;33m<span class="pl-pds">'</span></span>
+NC=<span class="pl-s"><span class="pl-pds">'</span>\033[0m<span class="pl-pds">'</span></span> <span class="pl-c"><span class="pl-c">#</span> 重置颜色</span>
+
+<span class="pl-c"><span class="pl-c">#</span> 第一步：备份关键配置文件</span>
+<span class="pl-c1">echo</span> -e <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">${YELLOW}</span>1. 备份SSH关键配置文件...<span class="pl-smi">${NC}</span><span class="pl-pds">"</span></span>
+cp /etc/pam.d/sshd /etc/pam.d/sshd.before <span class="pl-k">2&gt;</span>/dev/null <span class="pl-k">||</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>sshd pam配置文件已存在备份或无需备份<span class="pl-pds">"</span></span>
+cp /etc/ssh/sshd_config /etc/ssh/sshd_config.before <span class="pl-k">2&gt;</span>/dev/null <span class="pl-k">||</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>sshd_config配置文件已存在备份或无需备份<span class="pl-pds">"</span></span>
+
+<span class="pl-c"><span class="pl-c">#</span> 第二步：处理冲突的openssh-help包</span>
+<span class="pl-c1">echo</span> -e <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">${YELLOW}</span>2. 检查并卸载冲突的openssh-help包...<span class="pl-smi">${NC}</span><span class="pl-pds">"</span></span>
+CONFLICT_PKG=<span class="pl-s"><span class="pl-pds">$(</span>rpm -qa <span class="pl-k">|</span> grep openssh-help<span class="pl-pds">)</span></span>
+<span class="pl-k">if</span> [ <span class="pl-k">-n</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">$CONFLICT_PKG</span><span class="pl-pds">"</span></span> ]<span class="pl-k">;</span> <span class="pl-k">then</span>
+    <span class="pl-c1">echo</span> -e <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">${YELLOW}</span>发现冲突包：<span class="pl-smi">$CONFLICT_PKG</span>，正在卸载...<span class="pl-smi">${NC}</span><span class="pl-pds">"</span></span>
+    rpm -e --nodeps <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">$CONFLICT_PKG</span><span class="pl-pds">"</span></span>
+    <span class="pl-k">if</span> [ <span class="pl-smi">$?</span> <span class="pl-k">-eq</span> 0 ]<span class="pl-k">;</span> <span class="pl-k">then</span>
+        <span class="pl-c1">echo</span> -e <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">${GREEN}</span>冲突包卸载成功！<span class="pl-smi">${NC}</span><span class="pl-pds">"</span></span>
+    <span class="pl-k">else</span>
+        <span class="pl-c1">echo</span> -e <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">${RED}</span>冲突包卸载失败，请手动执行：rpm -e --nodeps <span class="pl-smi">$CONFLICT_PKG</span><span class="pl-smi">${NC}</span><span class="pl-pds">"</span></span>
+        <span class="pl-c1">exit</span> 1
+    <span class="pl-k">fi</span>
+<span class="pl-k">else</span>
+    <span class="pl-c1">echo</span> -e <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">${GREEN}</span>未检测到openssh-help冲突包，跳过卸载步骤<span class="pl-smi">${NC}</span><span class="pl-pds">"</span></span>
+<span class="pl-k">fi</span>
+
+<span class="pl-c"><span class="pl-c">#</span> 第三步：安装OpenSSH相关rpm包</span>
+<span class="pl-c1">echo</span> -e <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">${YELLOW}</span>3. 安装OpenSSH rpm包...<span class="pl-smi">${NC}</span><span class="pl-pds">"</span></span>
+rpm -Uvh <span class="pl-k">*</span>.rpm --replacefiles  <span class="pl-c"><span class="pl-c">#</span> --replacefiles 强制替换冲突文件，避免遗漏</span>
+<span class="pl-k">if</span> [ <span class="pl-smi">$?</span> <span class="pl-k">-eq</span> 0 ]<span class="pl-k">;</span> <span class="pl-k">then</span>
+    <span class="pl-c1">echo</span> -e <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">${GREEN}</span>OpenSSH包安装成功！<span class="pl-smi">${NC}</span><span class="pl-pds">"</span></span>
+<span class="pl-k">else</span>
+    <span class="pl-c1">echo</span> -e <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">${RED}</span>OpenSSH包安装失败，请检查rpm包是否存在或完整<span class="pl-smi">${NC}</span><span class="pl-pds">"</span></span>
+    <span class="pl-c1">exit</span> 1
+<span class="pl-k">fi</span>
+
+<span class="pl-c"><span class="pl-c">#</span> 第四步：配置SSH权限和参数</span>
+<span class="pl-c1">echo</span> -e <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">${YELLOW}</span>4. 配置SSH权限和参数...<span class="pl-smi">${NC}</span><span class="pl-pds">"</span></span>
+<span class="pl-c1">cd</span> /etc/ssh/ <span class="pl-k">||</span> <span class="pl-c1">exit</span>  <span class="pl-c"><span class="pl-c">#</span> 切换目录失败则退出</span>
+chmod 400 ssh_host_ecdsa_key ssh_host_ed25519_key ssh_host_rsa_key <span class="pl-k">2&gt;</span>/dev/null <span class="pl-k">||</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>部分SSH密钥文件不存在，权限配置跳过<span class="pl-pds">"</span></span>
+
+<span class="pl-c"><span class="pl-c">#</span> 修改sshd_config配置</span>
+<span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>PermitRootLogin yes<span class="pl-pds">"</span></span> <span class="pl-k">&gt;&gt;</span> /etc/ssh/sshd_config
+sed -i -e <span class="pl-s"><span class="pl-pds">'</span>s/#UsePAM no/UsePAM yes/g<span class="pl-pds">'</span></span> /etc/ssh/sshd_config <span class="pl-k">2&gt;</span>/dev/null <span class="pl-k">||</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>UsePAM配置项无需修改<span class="pl-pds">"</span></span>
+
+<span class="pl-c"><span class="pl-c">#</span> 恢复pam配置</span>
+/bin/cp /etc/pam.d/sshd.before /etc/pam.d/sshd <span class="pl-k">2&gt;</span>/dev/null <span class="pl-k">||</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>pam配置文件恢复失败，请手动检查<span class="pl-pds">"</span></span>
+
+<span class="pl-c"><span class="pl-c">#</span> 清理重复的加密算法配置</span>
+sed -i <span class="pl-s"><span class="pl-pds">'</span>/KexAlgorithms/d<span class="pl-pds">'</span></span> /etc/ssh/sshd_config
+sed -i <span class="pl-s"><span class="pl-pds">'</span>/GSSAPIKexAlgorithms/d<span class="pl-pds">'</span></span> /etc/ssh/sshd_config
+sed -i <span class="pl-s"><span class="pl-pds">'</span>/HostKeyAlgorithms/d<span class="pl-pds">'</span></span> /etc/ssh/sshd_config
+
+<span class="pl-c"><span class="pl-c">#</span> 添加加密算法配置</span>
+<span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>Kexalgorithms curve25519-sha256,curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1,diffie-hellman-group1-sha1,diffie-hellman-group1-sha1,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group-exchange-sha256,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group1-sha1,curve25519-sha256@libssh.org<span class="pl-pds">"</span></span> <span class="pl-k">&gt;&gt;</span>/etc/ssh/sshd_config
+<span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>HostKeyAlgorithms +ssh-rsa<span class="pl-pds">"</span></span> <span class="pl-k">&gt;&gt;</span>/etc/ssh/sshd_config
+
+<span class="pl-c"><span class="pl-c">#</span> 第五步：重启SSH服务</span>
+<span class="pl-c1">echo</span> -e <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">${YELLOW}</span>5. 重启SSH服务...<span class="pl-smi">${NC}</span><span class="pl-pds">"</span></span>
+systemctl restart sshd
+<span class="pl-k">if</span> [ <span class="pl-smi">$?</span> <span class="pl-k">-eq</span> 0 ]<span class="pl-k">;</span> <span class="pl-k">then</span>
+    <span class="pl-c1">echo</span> -e <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">${GREEN}</span>SSH服务重启成功，脚本执行完成！<span class="pl-smi">${NC}</span><span class="pl-pds">"</span></span>
+<span class="pl-k">else</span>
+    <span class="pl-c1">echo</span> -e <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">${RED}</span>SSH服务重启失败，请检查配置文件！<span class="pl-smi">${NC}</span><span class="pl-pds">"</span></span>
+    <span class="pl-c1">exit</span> 1
+<span class="pl-k">fi</span></pre></div>
+<h1>一键部署</h1>
+<h2>支持版本</h2>
+<p>• Ubuntu 24.04/22.04/20.04<br>
+• Debian 13/trixie 12/bookworm 11/bullseye<br>
+• UnionTech OS 桌面版 20 家庭版 (Debian GLIBC 2.28.21-1+deepin-1)<br>
+• Kylin V10 SP1 (Ubuntu GLIBC 2.31-0kylin9.2k0.1)</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">sudo bash -c <span class="pl-s"><span class="pl-pds">"</span><span class="pl-s"><span class="pl-pds">$(</span>curl -L https://github.com/boypt/openssh-deb/raw/master/lazy_install.sh<span class="pl-pds">)</span></span><span class="pl-pds">"</span></span></pre></div>
+<h2>一键回滚</h2>
+<p>恢复发行版默认版本</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">sudo apt update
+V=<span class="pl-s"><span class="pl-pds">$(</span>apt-cache madison ssh <span class="pl-k">|</span> awk <span class="pl-s"><span class="pl-pds">'</span>NR==1 {print $3}<span class="pl-pds">'</span></span><span class="pl-pds">)</span></span>
+sudo apt install --allow-downgrades -y \
+    ssh=<span class="pl-smi">$V</span> openssh-client=<span class="pl-smi">$V</span> openssh-server=<span class="pl-smi">$V</span> openssh-sftp-server=<span class="pl-smi">$V</span></pre></div></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://Lincorn.github.io">Lemonas</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if("07/23/2025"!=""){
+    var startSite=new Date("07/23/2025");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","Lincorn/Lincorn.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+
+
+</html>

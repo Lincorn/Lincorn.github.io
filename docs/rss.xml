@@ -1,5 +1,49 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Lemonas</title><link>https://Lincorn.github.io</link><description>心中一点浩然气，何处不是倒悬山</description><copyright>Lemonas</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://imgs.lemonas.us.kg/file/mike.png</url><title>avatar</title><link>https://Lincorn.github.io</link></image><lastBuildDate>Wed, 21 Jan 2026 01:30:17 +0000</lastBuildDate><managingEditor>Lemonas</managingEditor><ttl>60</ttl><webMaster>Lemonas</webMaster><item><title>乌邦图安装英伟达驱动示例</title><link>https://Lincorn.github.io/post/wu-bang-tu-an-zhuang-ying-wei-da-qu-dong-shi-li.html</link><description>## Ubuntu 安装 RTX 4090 NVIDIA 显卡驱动
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Lemonas</title><link>https://Lincorn.github.io</link><description>心中一点浩然气，何处不是倒悬山</description><copyright>Lemonas</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://imgs.lemonas.us.kg/file/mike.png</url><title>avatar</title><link>https://Lincorn.github.io</link></image><lastBuildDate>Wed, 21 Jan 2026 01:42:17 +0000</lastBuildDate><managingEditor>Lemonas</managingEditor><ttl>60</ttl><webMaster>Lemonas</webMaster><item><title>Linux系统升级openssh和openssl</title><link>https://Lincorn.github.io/post/Linux-xi-tong-sheng-ji-openssh-he-openssl.html</link><description># 大致思路
+&lt;img width='2418' height='1134' alt='Image' src='https://github.com/user-attachments/assets/ee76289d-f2c3-4f4a-8183-934954b3f88d' /&gt;
+
+&lt;img width='2414' height='1126' alt='Image' src='https://github.com/user-attachments/assets/2e4cda9c-0926-4dcd-8e27-566ef2284150' /&gt;
+
+&lt;img width='2430' height='1124' alt='Image' src='https://github.com/user-attachments/assets/95d5a20b-d2ed-434f-b8b6-48efb614699a' /&gt;
+
+&lt;img width='2430' height='1082' alt='Image' src='https://github.com/user-attachments/assets/aca6eecc-a466-4a1a-a42a-37de2fc11268' /&gt;
+
+# 具体脚本
+
+## 1、获取openssh-rpms软件包
+
+## 2、接着执行如下操作：
+```bash
+yum install perl perl-IPC-Cmd
+yum groupinstall -y 'Development Tools'
+yum install -y imake rpm-build pam-devel krb5-devel zlib-devel libXt-devel libX11-devel gtk2-devel initscripts chkconfig perl-Time-Piece 
+```
+```bash
+# For CentOS7 and above:
+yum install -y systemd-devel
+```
+```bash
+# For CentOS5 only:
+yum install -y gcc44
+```
+
+
+## 3、下载并编译openssh
+下载软件包，主要是openssl和openssh
+```bash
+openssl: https://openssl-library.org/source/
+openssh: https://mirrors.aliyun.com/pub/OpenBSD/OpenSSH/portable/
+```
+```bash
+[root@openeurelr1233 ~]# cd openssh-rpms-main
+amzn1 amzn2023  docker   downloads el6 pullsrc.sh version.env
+amzn2 compile.sh docker.README.md el5  el7 README.md
+```
+```bash
+#下面此步骤会自动下载所需源码包，也可以手动下载，放到downloads目录下
+[root@openeurelr1233 openssh-rpms-main]# ./pullsrc.sh
+上面脚本默认下载openssl和openssh的软件版本，会读取version.env文件，可修改此文件，选择需要下载和编译
+的其他版本。</description><guid isPermaLink="true">https://Lincorn.github.io/post/Linux-xi-tong-sheng-ji-openssh-he-openssl.html</guid><pubDate>Wed, 21 Jan 2026 01:41:52 +0000</pubDate></item><item><title>乌邦图安装英伟达驱动示例</title><link>https://Lincorn.github.io/post/wu-bang-tu-an-zhuang-ying-wei-da-qu-dong-shi-li.html</link><description>## Ubuntu 安装 RTX 4090 NVIDIA 显卡驱动
 
 作为一名开发者/运维人员，在 Ubuntu 系统中为 RTX 4090 配置合适的 NVIDIA 驱动是跑深度学习、3D 渲染等任务的基础。</description><guid isPermaLink="true">https://Lincorn.github.io/post/wu-bang-tu-an-zhuang-ying-wei-da-qu-dong-shi-li.html</guid><pubDate>Wed, 21 Jan 2026 01:29:52 +0000</pubDate></item><item><title>Ubuntu显卡驱动离线安装教程</title><link>https://Lincorn.github.io/post/Ubuntu-xian-qia-qu-dong-li-xian-an-zhuang-jiao-cheng.html</link><description># Ubuntu 22.04.5 离线安装海光 K100 AI（DCU）驱动与 DTK 全流程指南
 
