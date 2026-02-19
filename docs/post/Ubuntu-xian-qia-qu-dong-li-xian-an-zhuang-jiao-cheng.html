@@ -23,7 +23,7 @@
 <meta property="og:url" content="https://Lincorn.github.io/post/Ubuntu-xian-qia-qu-dong-li-xian-an-zhuang-jiao-cheng.html">
 <meta property="og:image" content="https://imgs.lemonas.us.kg/file/mike.png">
 <title>Ubuntu显卡驱动离线安装教程</title>
-
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
 
 
 </head>
@@ -131,63 +131,50 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <hr>
 <h2>⚙️ 二、系统依赖准备（离线）</h2>
 <p>如果服务器不能联网，请在一台联网的 Ubuntu 22.04 机器上执行：</p>
-<pre lang="bash" class="notranslate"><code class="notranslate">sudo apt update
-sudo apt download dkms build-essential libelf-dev linux-headers-$(uname -r) pciutils cmake automake make libdrm-dev python3
-</code></pre>
+<div class="highlight highlight-source-shell"><pre class="notranslate">sudo apt update
+sudo apt download dkms build-essential libelf-dev linux-headers-<span class="pl-s"><span class="pl-pds">$(</span>uname -r<span class="pl-pds">)</span></span> pciutils cmake automake make libdrm-dev python3</pre></div>
 <p>会生成一堆 .deb 文件。</p>
 <p>将这些文件拷贝到服务器（例如 /home/ubuntu/offline-debs），然后执行：</p>
-<pre lang="bash" class="notranslate"><code class="notranslate">sudo dpkg -i /home/ubuntu/offline-debs/*.deb
-</code></pre>
+<div class="highlight highlight-source-shell"><pre class="notranslate">sudo dpkg -i /home/ubuntu/offline-debs/<span class="pl-k">*</span>.deb</pre></div>
 <p>若有依赖错误可运行：</p>
-<pre lang="bash" class="notranslate"><code class="notranslate">sudo apt -f install
-</code></pre>
+<div class="highlight highlight-source-shell"><pre class="notranslate">sudo apt -f install</pre></div>
 <p>（离线环境不会下载，只修复已存在的依赖关系）</p>
 <h2>🧱 三、安装海光 K100 AI 驱动（rock-6.3.13）</h2>
 <h3>1️⃣ 添加执行权限</h3>
-<pre lang="bash" class="notranslate"><code class="notranslate">chmod +x rock-6.3.13-V1.12.0.run
-</code></pre>
+<div class="highlight highlight-source-shell"><pre class="notranslate">chmod +x rock-6.3.13-V1.12.0.run</pre></div>
 <h3>2️⃣ 执行安装</h3>
-<pre lang="bash" class="notranslate"><code class="notranslate">sudo ./rock-6.3.13-V1.12.0.run --no-dkms
-</code></pre>
+<div class="highlight highlight-source-shell"><pre class="notranslate">sudo ./rock-6.3.13-V1.12.0.run --no-dkms</pre></div>
 <pre class="notranslate"><code class="notranslate"> --no-dkms 表示使用本地 DKMS 编译，不会联网拉取依赖。
  安装过程中会自动编译内核模块，请耐心等待。
 </code></pre>
 <h3>3️⃣ 安装完成后重启</h3>
-<pre lang="bash" class="notranslate"><code class="notranslate">sudo reboot
-</code></pre>
+<div class="highlight highlight-source-shell"><pre class="notranslate">sudo reboot</pre></div>
 <h3>4️⃣ 验证驱动状态</h3>
-<pre lang="bash" class="notranslate"><code class="notranslate">/opt/rocm/bin/rocminfo
-/opt/rocm/bin/rocm-smi
-</code></pre>
+<div class="highlight highlight-source-shell"><pre class="notranslate">/opt/rocm/bin/rocminfo
+/opt/rocm/bin/rocm-smi</pre></div>
 <h3>若能看到类似以下输出：</h3>
-<pre lang="bash" class="notranslate"><code class="notranslate">Device 0: DCU K100 AI
+<div class="highlight highlight-source-shell"><pre class="notranslate">Device 0: DCU K100 AI
 gfx version: gfx928
-Memory: 32768 MB
-</code></pre>
+Memory: 32768 MB</pre></div>
 <p>说明驱动安装成功 🎉</p>
 <h2>🧠 四、安装 DCU ToolKit（DTK）</h2>
 <h3>1️⃣ 解压 DTK 安装包</h3>
-<pre lang="bash" class="notranslate"><code class="notranslate">tar -xzvf DTK-25.04-Ubuntu22.04-x86_64.tar.gz -C /opt
-</code></pre>
+<div class="highlight highlight-source-shell"><pre class="notranslate">tar -xzvf DTK-25.04-Ubuntu22.04-x86_64.tar.gz -C /opt</pre></div>
 <h3>2️⃣ 设置环境变量</h3>
-<pre lang="bash" class="notranslate"><code class="notranslate">sudo tee /etc/profile.d/dtk_env.sh &lt;&lt;'EOF'
-export PATH=/opt/DTK/bin:$PATH
-export LD_LIBRARY_PATH=/opt/DTK/lib:$LD_LIBRARY_PATH
-export HSA_OVERRIDE_GFX_VERSION=9.2.8
-export ROCR_VISIBLE_DEVICES=0
-EOF
-</code></pre>
+<div class="highlight highlight-source-shell"><pre class="notranslate">sudo tee /etc/profile.d/dtk_env.sh <span class="pl-s"><span class="pl-k">&lt;&lt;</span>'<span class="pl-k">EOF</span>'</span>
+<span class="pl-s">export PATH=/opt/DTK/bin:$PATH</span>
+<span class="pl-s">export LD_LIBRARY_PATH=/opt/DTK/lib:$LD_LIBRARY_PATH</span>
+<span class="pl-s">export HSA_OVERRIDE_GFX_VERSION=9.2.8</span>
+<span class="pl-s">export ROCR_VISIBLE_DEVICES=0</span>
+<span class="pl-s"><span class="pl-k">EOF</span></span></pre></div>
 <p>立即生效：</p>
-<pre lang="bash" class="notranslate"><code class="notranslate">source /etc/profile.d/dtk_env.sh
-</code></pre>
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c1">source</span> /etc/profile.d/dtk_env.sh</pre></div>
 <h3>3️⃣ 验证 DTK 是否安装成功</h3>
-<pre lang="bash" class="notranslate"><code class="notranslate">/opt/DTK/bin/dtk-smi
-</code></pre>
+<div class="highlight highlight-source-shell"><pre class="notranslate">/opt/DTK/bin/dtk-smi</pre></div>
 <h2>🧪 五、验证 K100 AI 是否工作正常</h2>
-<pre lang="bash" class="notranslate"><code class="notranslate">lspci | grep -i dcu
+<div class="highlight highlight-source-shell"><pre class="notranslate">lspci <span class="pl-k">|</span> grep -i dcu
 /opt/rocm/bin/rocm-smi
-rocminfo | grep gfx
-</code></pre>
+rocminfo <span class="pl-k">|</span> grep gfx</pre></div>
 <p>若输出中包含设备型号（如 gfx928 / gfx940 等），表示驱动与工具链均工作正常。</p>
 <h2>✅ 六、离线安装流程总结</h2>
 <markdown-accessiblity-table><table role="table">
